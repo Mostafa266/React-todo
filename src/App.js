@@ -8,7 +8,7 @@ function App() {
     <div className="App">
         <div className="container">
           <div className="row">
-            <h1>New will added</h1>
+            <h1>New will new feature is coming now</h1>
             <TodoInput/>
             <TodoList/>
         </div>
