@@ -8,28 +8,43 @@ import TodoList from './components/TodoList';
 class App extends Component {
 
     state = {
-        items: [
-            {
-                id: 1,
-                title: 'Make Breakfast'
-            }, {
-                id: 2,
-                title: 'Learn new skill'
-            }
-        ],
+        items: [],
         id: uuidv4(),
         item: '',
         editItem: false
     }
 
     handleChange = e => {
-        console.log('handle Change')
+        this.setState({
+          item:e.target.value
+        })
     }
     handleSubmit = e => {
-        console.log('handle Submit')
+       e.preventDefault();
+       // here we create new item with new data coming from user then applay it to new array in other method
+       const newItem = {
+         id:this.state.id,
+         title:this.state.item,
+       }
+
+    //  you can use two of his options
+        const updatedItems = [...this.state.items,newItem];
+    //  const updatedItems = this.state.items.concat(newItem);
+    //  you can use two of his options
+
+       this.setState({
+         items:updatedItems,
+         item:'',
+         id:uuidv4(),
+         editItem:false
+       }, ()=> console.log(this.state))
+
     }
     clearList = _ => {
         console.log('Clear List')
+    }
+    editItem = _ => {
+      console.log('edit Item')
     }
     handleEdit = id => {
         console.log(`handle Edit ${id}`)
@@ -39,7 +54,6 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state.items[0].id)
         return (
             <div className='container'>
                 <div className='row'>
@@ -51,7 +65,7 @@ class App extends Component {
                             item={this.state.item}
                             handleChange={this.handleChange}
                             handleSubmit={this.handleSubmit}
-                            handleEdit={this.handleEdit}/>
+                            editItem={this.editItem}/>
                         <TodoList
                             items={this.state.items}
                             handleDelete={this.handleDelete}
